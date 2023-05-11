@@ -11,7 +11,7 @@ import HandleRecoil from '../components/HandleRecoil';
 export default function Home() {
   const topRatedMovies = useRecoilValue(topRatedMoviesRecoil);
   const popularMovies = useRecoilValue(popularMoviesRecoil);
-  const previewdMovies = useRecoilValue(previewMoviesRecoil);
+  const previewMovies = useRecoilValue(previewMoviesRecoil);
   const nowPlayingMovies = useRecoilValue(nowPlayingMoviesRecoil);
 
   HandleRecoil();
@@ -22,7 +22,18 @@ export default function Home() {
     <div className={styles.container}>
       <Container>
           <Header></Header>
-          <TopRatedText>Top Rated</TopRatedText>
+          <TitleText style={{ fontSize: '26.75px' }}>Previews</TitleText>
+          <MovieSlider>
+            {
+                previewMovies.map((movie) =>{
+                    return (
+                    <CirclePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                    );
+                    },
+            )}
+         </MovieSlider>
+
+          <TitleText>Top Rated</TitleText>
           <MovieSlider>
             {
                 topRatedMovies.map((movie) =>{
@@ -62,7 +73,16 @@ const RectanglePoster = styled.div<{posterImg : string}>`
     margin-left: 6px;
     border-radius: 2px;
 `
-const TopRatedText = styled.div`
+const CirclePoster = styled.div<{posterImg : string}>`
+    background-image: url(${props => props.posterImg});
+    background-size: cover;
+    width: 102px;
+    height: 102px;
+    flex: 0 0 auto;
+    margin-left: 7px;
+    border-radius: 100%;
+`
+const TitleText = styled.div`
     font-size: 21px;
     color: white;
     font-weight: 700;
