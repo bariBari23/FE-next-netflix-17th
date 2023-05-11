@@ -21,7 +21,7 @@ function Logo(){
 
     const goToMain = setTimeout(()=>{
         router.push('/MainPage');
-    }, 4600)
+    }, 4400)
     
     return (
         <Container>
