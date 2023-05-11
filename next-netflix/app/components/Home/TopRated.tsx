@@ -1,11 +1,16 @@
+"use client";
+
 import styled from 'styled-components'
 import styles from '../styles/home.module.css'
 import { MovieApi } from '../../api'
 import React, { useEffect, useState } from 'react';
+import { topRatedMoviesRecoil } from '../../recoil';
+import { useRecoilState } from 'recoil';
 
  
-function Previews() {
+function Popular() {
     const [popular, setPopular] = useState([]);
+    const [ topRatedMovies, setTopRatedMovies ] = useRecoilState(topRatedMoviesRecoil);
 
     useEffect(() => {
         const fetchPopularMovies = async() => {
@@ -16,9 +21,10 @@ function Previews() {
                 console.error(error);
             }
         };
-
         fetchPopularMovies();
     }, []);
+
+    setTopRatedMovies(popular);
 
     console.log(popular);
     return (
@@ -27,4 +33,4 @@ function Previews() {
 }
 
 
-export default Previews;
+export default Popular;

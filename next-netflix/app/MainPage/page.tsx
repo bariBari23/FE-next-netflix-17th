@@ -2,8 +2,11 @@
 import styled from 'styled-components'
 import styles from '../styles/home.module.css'
 import Header from '../components/Home/Header';
-import Previews from '../components/Home/Previews';
+import Popular from '../components/Home/TopRated';
+
+
  
+
 
 export default function Home() {
   return (
@@ -12,7 +15,7 @@ export default function Home() {
     <div className={styles.container}>
       <Container>
           <Header></Header>
-          <Previews/>
+          <Popular/>
       </Container>
        
       
