@@ -1,6 +1,6 @@
 "use client";
 
-import { IMovie } from './interface/IMovie';
+import { IMovie } from './interface/interface';
 import { atom } from 'recoil';
 
 

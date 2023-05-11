@@ -12,9 +12,7 @@ export default function Home() {
       <Container>
           <Header></Header>
           <TopRated/>
-      </Container>
-       
-      
+      </Container>  
 
     </div>
   )

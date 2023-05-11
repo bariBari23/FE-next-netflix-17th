@@ -1,20 +1,35 @@
 "use client"
 import styled from 'styled-components';
 import React, { ReactNode } from 'react';
+//import { ScrollMenu } from 'react-horizontal-scrolling-menu';
+import { IMovie, IMoviePoster } from '@/app/interface/interface';
 
 const Container = styled.div`
-    width: 100%;
-    height: 100%;
     display: flex;
-    flex-direction: row;
+    width: 375px;
+    height: 100%;
+`
+
+const ScrollPoster = styled.div`
+    display: flex;
+    width: 370px;
+    flex-wrap: no-wrap;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+        width: 0;
+    }  
 `
 interface MovieSliderProps {
-    children: ReactNode;
+    children: IMovie | IMovie[];
 }
 
 const MovieSlider = ({children}: MovieSliderProps) =>{
+    console.log("durldurl");
+    console.log({children});
     return(
-        <Container>{children}</Container>
+        <Container>
+            <ScrollPoster>{children}</ScrollPoster>
+        </Container>
     );
 }
 

@@ -7,22 +7,20 @@ import React, { useEffect, useState } from 'react';
 import { topRatedMoviesRecoil } from '../../recoil';
 import { useRecoilState } from 'recoil';
 import MovieSlider from './MovieSlider';
-
-const Container = styled.div`
-    width: 100%;
-    height: 100%;
-`
+import { IMovie } from '../../interface/interface';
 
 const RectanglePoster = styled.div<{posterImg : string}>`
     background-image: url(${props => props.posterImg});
     background-size: cover;
     width: 103px;
     height: 161px;
+    flex: 0 0 auto;
+    margin-left: 6px;
+    
 `
 
 
- 
-function Toprated() {
+const TopRated: React.FC = () => {
     const [topRated, setTopRated] = useState([]);
     const [ topRatedMovies, setTopRatedMovies ] = useRecoilState(topRatedMoviesRecoil);
 
@@ -39,18 +37,18 @@ function Toprated() {
     }, []);
 
     setTopRatedMovies(topRated);
-
-    console.log(topRated);
     return (
         <MovieSlider>
             {
-                topRatedMovies.map((movie) =>(
+                topRatedMovies.map((movie) =>{
+                    return (
                     <RectanglePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
-                ))
-            }
+                    );
+                    },
+            )}
         </MovieSlider>
     );
 }
 
 
-export default Toprated;
+export default TopRated;
