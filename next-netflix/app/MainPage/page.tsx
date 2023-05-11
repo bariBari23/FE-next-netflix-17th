@@ -2,11 +2,7 @@
 import styled from 'styled-components'
 import styles from '../styles/home.module.css'
 import Header from '../components/Home/Header';
-import Popular from '../components/Home/TopRated';
-
-
- 
-
+import TopRated from '../components/Home/TopRated';
 
 export default function Home() {
   return (
@@ -15,7 +11,7 @@ export default function Home() {
     <div className={styles.container}>
       <Container>
           <Header></Header>
-          <Popular/>
+          <TopRated/>
       </Container>
        
       
@@ -28,4 +24,5 @@ const Container = styled.div`
   width : 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
 `
