@@ -1,6 +1,5 @@
-'use client';
 import Image from 'next/image'
-import Logo from './components/NetflixLogo';
+import Logo from './components/Lottie/NetflixLogo';
 
 function Home() {
   return (

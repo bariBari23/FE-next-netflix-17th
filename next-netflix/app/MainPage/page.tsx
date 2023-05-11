@@ -1,13 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    width: 375px;
+    height: 812px;
+    margin: auto;
+    background-color: white;
+`
 
 
 
 function Logo(){
     
     return (
-        <div>main</div>
+        <Container>main</Container>
     );
 }
 
