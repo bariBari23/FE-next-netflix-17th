@@ -4,8 +4,10 @@ import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 
 const Container = styled.div`
-    width: 50%;
+    width: 375px;
+    height: 812px;
     margin: auto;
+    background-color: white;
 `
 
 
