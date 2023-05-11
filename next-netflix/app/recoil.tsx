@@ -9,3 +9,18 @@ export const topRatedMoviesRecoil = atom<IMovie[]>({
     default: []
 });
 
+export const popularMoviesRecoil = atom<IMovie[]>({
+    key: 'popularMovies',
+    default: []
+});
+
+export const previewMoviesRecoil = atom<IMovie[]>({
+    key: 'previewdMovies',
+    default: []
+});
+
+export const nowPlayingMoviesRecoil = atom<IMovie[]>({
+    key: 'nowPlayingMovies',
+    default: []
+});
+
