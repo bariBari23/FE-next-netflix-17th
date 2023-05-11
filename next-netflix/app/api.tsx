@@ -6,9 +6,11 @@ const api = axios.create({
         api_key: "4a427cc6585f047c91a2fa3483fb8d31",
         language: "en-US"
     }
-})
+});
 
-export const MovieAPi = {
+export default api;
+
+export const MovieApi = {
     nowPlaying: () => api.get("movie/now_playing"),
     upcoming: () => api.get("movie/upcoming"),
     popular: () => api.get("movie/popular"),

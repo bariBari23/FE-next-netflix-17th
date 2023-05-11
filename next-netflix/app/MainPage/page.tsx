@@ -2,6 +2,7 @@
 import styled from 'styled-components'
 import styles from '../styles/home.module.css'
 import Header from '../components/Home/Header';
+import Previews from '../components/Home/Previews';
  
 
 export default function Home() {
@@ -9,10 +10,19 @@ export default function Home() {
     // 지금 div는 home.module.css 파일의 .container style을 따르고 있음! 
     // 거기 보면 height:100%인데 아직 아무 컴포넌트의 height도 추가되지 않아서 그냥 배경이 까맣게 보일거야! 여긴 그냥 컴포넌트 쭉 쓰고 component 폴더에 만들어도 될 것 같아!
     <div className={styles.container}>
-      <Header></Header>
+      <Container>
+          <Header></Header>
+          <Previews/>
+      </Container>
        
       
 
     </div>
   )
 }
+
+const Container = styled.div`
+  width : 100%;
+  height: 100%;
+  display: flex;
+`
