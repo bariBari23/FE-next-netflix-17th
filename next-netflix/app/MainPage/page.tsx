@@ -1,22 +1,18 @@
-'use client';
+"use client";
+import styled from 'styled-components'
+import styles from '../styles/home.module.css'
+import Header from '../components/Home/Header';
+ 
 
-import { useRouter } from 'next/navigation';
-import styled from 'styled-components';
+export default function Home() {
+  return (
+    // 지금 div는 home.module.css 파일의 .container style을 따르고 있음! 
+    // 거기 보면 height:100%인데 아직 아무 컴포넌트의 height도 추가되지 않아서 그냥 배경이 까맣게 보일거야! 여긴 그냥 컴포넌트 쭉 쓰고 component 폴더에 만들어도 될 것 같아!
+    <div className={styles.container}>
+      <Header></Header>
+       
+      
 
-const Container = styled.div`
-    width: 375px;
-    height: 812px;
-    margin: auto;
-    background-color: white;
-`
-
-
-
-function Logo(){
-    
-    return (
-        <Container>main</Container>
-    );
+    </div>
+  )
 }
-
-export default Logo;
