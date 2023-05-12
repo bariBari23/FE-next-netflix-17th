@@ -19,9 +19,9 @@ export default function Home() {
   return (
     
     <div className={styles.container}>
-                <Header></Header>
-          <TitleText style={{ fontSize: '26.75px' }}>Previews</TitleText>
-          <MovieSlider>
+        <Header></Header>
+        <TitleText style={{ fontSize: '26.75px' }}>Previews</TitleText>
+        <MovieSlider>
             {
                 previewMovies.map((movie) =>{
                     return (
@@ -29,10 +29,10 @@ export default function Home() {
                     );
                     },
             )}
-         </MovieSlider>
+        </MovieSlider>
 
-          <TitleText>Top Rated</TitleText>
-          <MovieSlider>
+        <TitleText>Top Rated</TitleText>
+        <MovieSlider>
             {
                 topRatedMovies.map((movie) =>{
                     return (
@@ -41,18 +41,11 @@ export default function Home() {
                     },
             )}
         </MovieSlider>
-
-
     </div>
   )
 }
 
-// const Container = styled.div`
-//   width : 375px;
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-// `
+
 const MovieSlider = styled.div`
     display: flex;
     width: 370px;
