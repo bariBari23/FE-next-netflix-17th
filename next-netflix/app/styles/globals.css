@@ -19,4 +19,10 @@
 body {
   color: white;
   background: black;
+  font-family: 'SFProDisplay';
+}
+
+@font-face {
+  font-family: 'SFProDisplay' ;
+  src: url('../../public/font/SFPRODISPLAYREGULAR.OTF');
 }
