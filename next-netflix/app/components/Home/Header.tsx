@@ -9,15 +9,23 @@ import { popularMoviesRecoil } from "../../recoil";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { MovieApi } from "../../api";
-import { IMovie } from "@/app/interface/interface";
 
 
 export default function Header() {
+    // header random picture  
     const randomMovie = Math.floor(Math.random() * 10);
     const [popularMovies, setPopularMovies] = useRecoilState(popularMoviesRecoil);
-
     const backdropPath = popularMovies?.[randomMovie]?.backdrop_path;
     const imageSrc = backdropPath ? `https://image.tmdb.org/t/p/original${backdropPath}` : '';
+
+    //Play font style
+    const boldText = {
+      fontWeight: 'bold', 
+      color: '#000000',
+      lineHeight: '30px',
+      letterSpacing:'-0.06px',
+      fontSize: '20.46px'
+    }
 
     useEffect(() => {
         const fetchRandomMovies = async() => {
@@ -46,15 +54,15 @@ export default function Header() {
         <Bottom>
             <BottomSub>
                 <AiOutlinePlus size={25}/>
-                <div style={{color: "white"}}>My List</div>
+                <div>My List</div>
             </BottomSub>
             <PlayButton>
                 <FaPlay size={25} color="black"/>
-                <div style={{color: "black"}}>Play</div>
+                <div style={boldText}>Play</div>
             </PlayButton>
             <BottomSub>
                 <AiOutlineInfoCircle size={25}/>
-                <div style={{color: "white"}}>Info</div>
+                <div>Info</div>
             </BottomSub>
         </Bottom>
       </Wrapper>
