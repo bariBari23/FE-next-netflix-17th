@@ -31,10 +31,32 @@ export default function Home() {
             )}
         </MovieSlider>
 
+        <TitleText>Now Playing</TitleText>
+        <MovieSlider>
+            {
+                nowPlayingMovies.map((movie) =>{
+                    return (
+                    <RectanglePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                    );
+                    },
+            )}
+        </MovieSlider>
+
         <TitleText>Top Rated</TitleText>
         <MovieSlider>
             {
                 topRatedMovies.map((movie) =>{
+                    return (
+                    <RectanglePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                    );
+                    },
+            )}
+        </MovieSlider>
+
+        <TitleText>Popular</TitleText>
+        <MovieSlider>
+            {
+                popularMovies.map((movie) =>{
                     return (
                     <RectanglePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
                     );

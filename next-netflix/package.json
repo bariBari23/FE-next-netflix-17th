@@ -25,6 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-horizontal-scrolling-menu": "^4.0.4",
+    "recoil": "^0.7.7",
     "styled-components": "^6.0.0-rc.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
