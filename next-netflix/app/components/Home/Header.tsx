@@ -5,12 +5,16 @@ import Image from "next/image"
 import { popularMoviesRecoil } from "../../recoil";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
-import { MovieApi } from "@/app/api";
+import { MovieApi } from "../../api";
+import { IMovie } from "@/app/interface/interface";
 
 
 export default function Header() {
     const randomMovie = Math.floor(Math.random() * 10);
     const [popularMovies, setPopularMovies] = useRecoilState(popularMoviesRecoil);
+
+    const backdropPath = popularMovies?.[randomMovie]?.backdrop_path;
+    const imageSrc = backdropPath ? `https://image.tmdb.org/t/p/original${backdropPath}` : '';
 
     useEffect(() => {
         const fetchRandomMovies = async() => {
@@ -33,11 +37,13 @@ export default function Header() {
                 <HeaderText>TV Shows</HeaderText> 
                 <HeaderText>Movies</HeaderText> 
                 <HeaderText>My List</HeaderText> 
+                
             </HeaderNavigator>
-            <HeaderImg src={`https://image.tmdb.org/t/p/original/${popularMovies[randomMovie]?.backdrop_path}`} />
-                 
+            {backdropPath && <HeaderImg src={imageSrc} />}
         </Top>
+        <Bottom>
 
+        </Bottom>
       </Wrapper>
     )
   }
@@ -57,6 +63,8 @@ const HeaderNavigator = styled.div`
   width: 375px;   
   padding: 1rem 1rem 0 0;
   cursor: pointer;
+  z-index: 99;
+  position: relative;
 `;
 
 const HeaderText = styled.div`
@@ -66,5 +74,13 @@ const HeaderText = styled.div`
 `;
 
 const HeaderImg = styled.img`
+    width: 375px;
+    height: 415px;
+    object-fit: cover;
+    margin-top: -5rem;
+    z-index: 1;
+`;
+
+const Bottom = styled.div`
 
 `;
