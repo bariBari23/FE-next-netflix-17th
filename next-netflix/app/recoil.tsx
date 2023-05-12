@@ -24,3 +24,8 @@ export const nowPlayingMoviesRecoil = atom<IMovie[]>({
     default: []
 });
 
+export const activeIcon = atom<string>({
+    key: 'activeIcon',
+    default: 'Home'
+})
+

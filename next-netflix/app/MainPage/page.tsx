@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { topRatedMoviesRecoil, popularMoviesRecoil, nowPlayingMoviesRecoil, previewMoviesRecoil } from '../recoil';
 import HandleRecoil from '../components/HandleRecoil';
+import Navigation from '../components/Navigation/Navigation';
 
 
 export default function Home() {
@@ -19,7 +20,9 @@ export default function Home() {
   return (
     
     <div className={styles.container}>
+        <Navigation/>
         <Header></Header>
+        
         <TitleText style={{ fontSize: '26.75px' }}>Previews</TitleText>
         <MovieSlider>
             {
@@ -63,6 +66,8 @@ export default function Home() {
                     },
             )}
         </MovieSlider>
+        
+        
     </div>
   )
 }

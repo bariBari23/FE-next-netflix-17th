@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import styles from '../styles/home.module.css';
 import { MovieApi } from '../api';
 import React, { useEffect, useState } from 'react';
-import { topRatedMoviesRecoil, previewMoviesRecoil, nowPlayingMoviesRecoil, popularMoviesRecoil } from '../recoil';
+import { activeIcon, topRatedMoviesRecoil, previewMoviesRecoil, nowPlayingMoviesRecoil, popularMoviesRecoil } from '../recoil';
 import { useRecoilState } from 'recoil';
 
 
 function HandleRecoil(){
+    const [active, setActivePage] = useRecoilState(activeIcon);
     const [ topRatedMovies, setTopRatedMovies ] = useRecoilState(topRatedMoviesRecoil);
+
 
     useEffect(() => {
         const fetchTopRatedMovies = async() => {
