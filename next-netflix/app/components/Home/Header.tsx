@@ -2,18 +2,40 @@
 
 import styled from "styled-components"
 import Image from "next/image"
+import { popularMoviesRecoil } from "../../recoil";
+import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { MovieApi } from "@/app/api";
+
 
 export default function Header() {
+    const randomMovie = Math.floor(Math.random() * 10);
+    const [popularMovies, setPopularMovies] = useRecoilState(popularMoviesRecoil);
+
+    useEffect(() => {
+        const fetchRandomMovies = async() => {
+            try {
+                const {data} = await MovieApi.popular();
+                setPopularMovies(data.results);
+            }catch(error){
+                console.error(error);
+            }
+        };
+        fetchRandomMovies();
+    }, [setPopularMovies]);
+
     return (
+       
       <Wrapper>
         <Top>
             <HeaderNavigator>
                 <Image src="/image/netflix.png" alt="" width={"57"} height={"57"}/>
                 <HeaderText>TV Shows</HeaderText> 
-                <HeaderText>TV Shows</HeaderText> 
-                <HeaderText>TV Shows</HeaderText> 
+                <HeaderText>Movies</HeaderText> 
+                <HeaderText>My List</HeaderText> 
             </HeaderNavigator>
-            {/* 랜덤 함수 */}
+            <HeaderImg src={`https://image.tmdb.org/t/p/original/${popularMovies[randomMovie]?.backdrop_path}`} />
+                 
         </Top>
 
       </Wrapper>
@@ -43,6 +65,6 @@ const HeaderText = styled.div`
   color: white;
 `;
 
-const Logo = styled.div`
+const HeaderImg = styled.img`
 
 `;
