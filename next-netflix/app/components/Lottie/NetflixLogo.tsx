@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
-import { useEffect} from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Lottie from 'lottie-react';
-import NetflixLogo from './netflixLottie.json';
+import lottie from 'lottie-web';
+import animationData from './netflixLottie.json';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -18,14 +18,23 @@ const Container = styled.div`
 
 function Logo(){
     const router = useRouter();
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
     const goToMain = setTimeout(()=>{
         router.push('/MainPage');
-    }, 4000)
-    
+    }, 4400)
+
+    useEffect(() => {
+        lottie.loadAnimation({
+            loop: false,
+            autoplay: true,
+            animationData: animationData,
+            container: containerRef.current as HTMLElement,
+        });
+    }, []);
     return (
         <Container>
-            <Lottie animationData={NetflixLogo} style={{ margin: 'auto' }}/>
+            <div ref={containerRef}></div>
         </Container>
        
     );
