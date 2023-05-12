@@ -1,5 +1,8 @@
 "use client";
 
+import { AiOutlinePlus, AiOutlineInfoCircle } from "react-icons/ai";
+import { FaPlay } from "react-icons/fa";
+
 import styled from "styled-components"
 import Image from "next/image"
 import { popularMoviesRecoil } from "../../recoil";
@@ -37,12 +40,22 @@ export default function Header() {
                 <HeaderText>TV Shows</HeaderText> 
                 <HeaderText>Movies</HeaderText> 
                 <HeaderText>My List</HeaderText> 
-                
             </HeaderNavigator>
             {backdropPath && <HeaderImg src={imageSrc} />}
         </Top>
         <Bottom>
-
+            <BottomSub>
+                <AiOutlinePlus size={25}/>
+                <div style={{color: "white"}}>My List</div>
+            </BottomSub>
+            <PlayButton>
+                <FaPlay size={25} color="black"/>
+                <div style={{color: "black"}}>Play</div>
+            </PlayButton>
+            <BottomSub>
+                <AiOutlineInfoCircle size={25}/>
+                <div style={{color: "white"}}>Info</div>
+            </BottomSub>
         </Bottom>
       </Wrapper>
     )
@@ -82,5 +95,27 @@ const HeaderImg = styled.img`
 `;
 
 const Bottom = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 375px;   
+  padding: 1rem 1rem 0 0;
+  margin-bottom: 3rem;
+`;
 
+const BottomSub = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const PlayButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #C4C4C4;
+  width: 100px;
+  height: 45px;
+  border-radius: 5.625px;
 `;
