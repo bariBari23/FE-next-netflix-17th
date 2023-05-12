@@ -109,7 +109,7 @@ const Bottom = styled.div`
   align-items: center;
   width: 375px;   
   padding: 1rem 1rem 0 0;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 `;
 
 const BottomSub = styled.div`
