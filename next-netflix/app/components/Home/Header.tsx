@@ -8,7 +8,7 @@ import Image from "next/image"
 import { popularMoviesRecoil } from "../../recoil";
 import { useRecoilState } from "recoil";
 import { useEffect } from "react";
-import { MovieApi } from "../../api";
+import { MovieApi } from "../../lib/api";
 
 
 export default function Header() {

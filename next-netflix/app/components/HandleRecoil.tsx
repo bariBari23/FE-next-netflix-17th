@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import styles from '../styles/home.module.css';
-import { MovieApi } from '../api';
+import { MovieApi } from '../lib/api';
 import React, { useEffect, useState } from 'react';
 import { activeIcon, topRatedMoviesRecoil, previewMoviesRecoil, nowPlayingMoviesRecoil, popularMoviesRecoil } from '../recoil';
 import { useRecoilState } from 'recoil';
@@ -23,7 +23,7 @@ function HandleRecoil(){
             }
         };
         fetchTopRatedMovies();
-    }, [setTopRatedMovies]);
+    }, []);
 
     const [ nowPlayingMovies, setNowPlayingMovies ] = useRecoilState(nowPlayingMoviesRecoil);
 
@@ -37,7 +37,7 @@ function HandleRecoil(){
             }
         };
         fetchNowPlayingMovies();
-    }, [setNowPlayingMovies]);
+    }, []);
 
     const [ previewMovies, setPreviewMovies ] = useRecoilState(previewMoviesRecoil);
 
@@ -51,7 +51,7 @@ function HandleRecoil(){
             }
         };
         fetchPreviewMovies();
-    }, [setPreviewMovies]);
+    }, []);
 
     const [ popularMovies, setPopularMovies ] = useRecoilState(popularMoviesRecoil);
 
@@ -65,7 +65,7 @@ function HandleRecoil(){
             }
         };
         fetchPopularMovies();
-    }, [setPopularMovies]);
+    }, []);
     return null;
 }
 

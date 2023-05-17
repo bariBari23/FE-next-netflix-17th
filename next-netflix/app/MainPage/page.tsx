@@ -15,7 +15,9 @@ export default function Home() {
   const previewMovies = useRecoilValue(previewMoviesRecoil);
   const nowPlayingMovies = useRecoilValue(nowPlayingMoviesRecoil);
 
-  HandleRecoil();
+  useEffect(() => {
+    HandleRecoil();
+  },[]);
 
   return (
     
