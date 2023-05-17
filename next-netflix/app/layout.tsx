@@ -38,6 +38,12 @@ export default function RootLayout({
       <body>
         <Providers>{children}</Providers>
       </body>
+      <head>
+        <title>Netflix</title>
+      </head>
+      <RecoilRoot>
+        <body>{children}</body>
+      </RecoilRoot>
     </html>
   );
 }
