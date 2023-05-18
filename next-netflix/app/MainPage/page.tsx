@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { topRatedMoviesRecoil, popularMoviesRecoil, nowPlayingMoviesRecoil, previewMoviesRecoil } from '../recoil';
 import HandleRecoil from '../components/HandleRecoil';
 import Navigation from '../components/Navigation/Navigation';
+import PosterBox from '../components/Home/PosterBox';
 
 
 export default function Home() {
@@ -28,7 +29,7 @@ export default function Home() {
             {
                 previewMovies.map((movie) =>{
                     return (
-                    <CirclePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                    <PosterBox key={movie.id} circle = {true} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}
@@ -39,7 +40,7 @@ export default function Home() {
             {
                 nowPlayingMovies.map((movie) =>{
                     return (
-                    <RectanglePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                    <PosterBox key={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}
@@ -50,7 +51,7 @@ export default function Home() {
             {
                 topRatedMovies.map((movie) =>{
                     return (
-                    <RectanglePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                    <PosterBox key={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}
@@ -61,7 +62,7 @@ export default function Home() {
             {
                 popularMovies.map((movie) =>{
                     return (
-                    <RectanglePoster key={movie.id} posterImg = {`https://image.tmdb.org/t/p/original${movie.poster_path}`}/>
+                    <PosterBox key={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}
@@ -82,24 +83,7 @@ const MovieSlider = styled.div`
         width: 0;
     }  
 `
-const RectanglePoster = styled.div<{posterImg : string}>`
-    background-image: url(${props => props.posterImg});
-    background-size: cover;
-    width: 103px;
-    height: 161px;
-    flex: 0 0 auto;
-    margin-left: 6px;
-    border-radius: 2px;
-`
-const CirclePoster = styled.div<{posterImg : string}>`
-    background-image: url(${props => props.posterImg});
-    background-size: cover;
-    width: 102px;
-    height: 102px;
-    flex: 0 0 auto;
-    margin-left: 7px;
-    border-radius: 100%;
-`
+
 const TitleText = styled.div`
     font-size: 21px;
     color: white;
