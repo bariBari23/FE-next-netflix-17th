@@ -19,3 +19,17 @@ export interface IMoviePoster{
     id: number,
     posterImg: string,
 }
+
+export interface IUser{
+    id: number,
+    name: string,
+    age: number,
+    image: string,
+}
+
+export interface IActiveUser{
+    id: number,
+    name: string,
+    age: number,
+    image: string,
+}
