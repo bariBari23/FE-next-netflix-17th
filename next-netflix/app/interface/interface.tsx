@@ -13,6 +13,7 @@ export interface IMovie{
     video: boolean,
     vote_average: number,
     vote_count: number,
+    page: number,
 }
 
 export interface IMoviePoster{

@@ -1,27 +1,160 @@
 "use client";
 
 // import { User } from "../types";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import { AiOutlineSearch, AiOutlinePlayCircle } from "react-icons/ai";
+import { GrFormClose } from "react-icons/gr";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { getSearchData } from "../api";
+import { styled } from "styled-components";
+import { IMovie } from "../interface/interface";
+import {scroll} from "../SearchPage/scroll"
 
 
-export default function SearchHydrate() {
-  const { data, isLoading, isFetching, error } = useQuery({
-    queryKey: ["hydrate-datas"],
-    queryFn: () => getSearchData(),
-  });
+  export default function SearchHydrate() {
+    const [searchInput, setSearchInput] = useState('');
+    const [searchResults, setSearchResults] = useState<IMovie[]>([]);
 
-  return (
-    <main style={{ maxWidth: 1200, marginInline: "auto", padding: 20 }}>
-       <div>
-        {data?.map((movie) => (
-          <div key={movie.id}>
-            <h3>{movie.title}</h3>
-          </div>
-        ))}
-      </div>
+    const fetchSearchData = async ({ pageParam = 1 }) => {
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+      const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
+      const fetchData = await res.json();
+      return fetchData;
+    };
 
-    </main>
-  );
+    const bottom = useRef(null)
+
+    const {
+      data,
+      error,
+      fetchNextPage,
+      hasNextPage,
+      isFetching,
+      isLoading,
+    } = useInfiniteQuery({
+      queryKey: ['searchData'],
+      queryFn: fetchSearchData,
+      getNextPageParam: (lastPage: any) => {
+        const currentPage = lastPage?.[lastPage.length - 1]?.page || 1;
+        return currentPage + 1;
+      }
+    });
+
+    const onIntersect: IntersectionObserverCallback = ([entry], observer) => {
+      if (entry.isIntersecting) {
+        fetchNextPage();
+        console.log('Intersection observed:', entry);
+      }
+    };
+
+    // useObserver로 bottom ref와 onIntersect를 넘겨 주자.
+    scroll({
+      target: bottom,
+      onIntersect,
+  })
+  
+  useEffect(() => {
+    if (data) {
+      const newMovies = data.pages.flatMap((page) => page.results);
+  
+      // 중복 제거 로직 추가
+      const uniqueMovies = Array.from(new Set([...searchResults.map(movie => movie.id), ...newMovies.map(movie => movie.id)]))
+      .map(id => newMovies.find(movie => movie.id === id));
+
+      setSearchResults(uniqueMovies);
+    }
+  }, [data]);
+
+    return (
+      <Wrapper>
+        <SearchBar>
+          <AiOutlineSearch style={{color : "#C4C4C4", width : '30px'}} />
+          <SearchInput 
+          placeholder="Search for a show, movie, genre, e.t.c" 
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}/>
+          <GrFormClose style={{color : "red", width : '30px'}} />
+        </SearchBar>
+        
+        <ListWrapper>
+          <h3>Top Searches</h3>
+          <List>
+            {searchResults.map((movie) => (
+              <LittleList key={movie.id}>
+                {movie.poster_path && (
+                  <Img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
+                )}
+                <h3>{movie.title}</h3>
+                <AiOutlinePlayCircle/>
+              </LittleList>
+            ))}
+
+
+            <div ref={bottom} />
+
+            {isLoading && <p>Loading...</p>}
+          </List>
+          
+        </ListWrapper>
+        
+      </Wrapper>
+    );
+  }
+
+const Wrapper = styled.div`
+  height: 100%;
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+`;
+
+const SearchBar = styled.div`
+  display: flex;
+  width: 375px;
+  height: 52px;
+  align-items: center;
+  justify-content: space-around;
+  left: 0px;
+  top: 44px;
+  background: #424242;
+`;
+
+const SearchInput = styled.input`
+  background: none;
+  font-size: 15.213px;
+  width: 270px;
+`;
+
+const ListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+
+const List = styled.div`
+  width: 375px;
+  background: #424242;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+`;
+
+const LittleList = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  background-color: rgb(25, 25, 25);
+  box-sizing: content-box;
+  width: 146px;
+  height: 76px;
+  aspect-ratio: 146 / 76;
+  border: 0px;
+  border-radius: 2px;
+  object-fit: cover;
 }
+`;
