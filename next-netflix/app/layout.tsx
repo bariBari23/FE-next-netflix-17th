@@ -19,10 +19,11 @@
 //     </html>
 //   )
 // }
-
+"use client";
 import Providers from "./utils/provider";
 import React from "react";
 import "../app/styles/globals.css";
+import { RecoilRoot } from "recoil";
 
 export const metadata = {
   title: "Nextflix",
@@ -35,9 +36,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Providers>{children}</Providers>
-      </body>
+      
+        <body>
+          <Providers> 
+            <RecoilRoot>
+            {children}
+            </RecoilRoot>
+          </Providers>
+        </body>
+ 
       
     </html>
   );
