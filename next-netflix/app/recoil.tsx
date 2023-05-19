@@ -1,6 +1,6 @@
 "use client";
 
-import { IActiveMovie, IMovie } from './interface/interface';
+import { IActiveMovie, IMovie, IUser } from './interface/interface';
 import { atom } from 'recoil';
 
 
@@ -29,8 +29,20 @@ export const activeIcon = atom<string>({
     default: 'Home'
 })
 
-export const activeMovie = atom<IActiveMovie[]>({
+export const activeMovie = atom<IActiveMovie>({
     key: 'activeMovie',
-    default: []
+    default: {
+        title: 'title',
+        image: 'image',
+        description: 'description',
+    },
+})
+
+export const activeUser = atom<IUser>({
+    key: 'activeUser',
+    default: {
+        userId: 0,
+        userName: '나이키',
+    }
 })
 

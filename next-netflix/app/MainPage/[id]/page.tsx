@@ -11,12 +11,12 @@ import { activeMovie } from "../../recoil";
 
 export default function Page() {
   const movieInform = useRecoilValue(activeMovie);
-  console.log(movieInform[0].image);
+  console.log(movieInform.image);
   return (
     <div className={styles.container}>
-      <PosterBox src = {movieInform[0].image}/>
-      <TitleBox>{movieInform[0].title}</TitleBox>
-      <DesBox>{movieInform[0].description}</DesBox>
+      <PosterBox src = {movieInform.image}/>
+      <TitleBox>{movieInform.title}</TitleBox>
+      <DesBox>{movieInform.description}</DesBox>
     </div>
   );
 }

@@ -26,3 +26,9 @@ export interface IActiveMovie{
     image: string,
     description: string,
 }
+
+export interface IUser{
+    userId: number,
+    userName: string,
+}
+

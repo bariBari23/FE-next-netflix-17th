@@ -17,9 +17,9 @@ const PosterBox = ({id, circle, title, image, description} : {id: number; circle
             image: image,
             description: description,
         };
-        setMovieInform([updatedMovieInform]);
+        setMovieInform(updatedMovieInform);
     }
-    
+
     return(
         <Container circle = {circle}>
             <Link href={`/MainPage/${id}`} as={`/MainPage/${id}`} >
