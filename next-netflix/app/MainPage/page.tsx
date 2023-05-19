@@ -29,7 +29,7 @@ export default function Home() {
             {
                 previewMovies.map((movie) =>{
                     return (
-                    <PosterBox key={movie.id} circle = {true} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
+                    <PosterBox id={movie.id} circle = {true} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}
@@ -40,7 +40,7 @@ export default function Home() {
             {
                 nowPlayingMovies.map((movie) =>{
                     return (
-                    <PosterBox key={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
+                    <PosterBox id={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}
@@ -51,7 +51,7 @@ export default function Home() {
             {
                 topRatedMovies.map((movie) =>{
                     return (
-                    <PosterBox key={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
+                    <PosterBox id={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}
@@ -62,7 +62,7 @@ export default function Home() {
             {
                 popularMovies.map((movie) =>{
                     return (
-                    <PosterBox key={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
+                    <PosterBox id={movie.id} circle = {false} title = {movie.title} image = {`https://image.tmdb.org/t/p/original${movie.poster_path}`} description= {movie.overview}/>
                     );
                     },
             )}

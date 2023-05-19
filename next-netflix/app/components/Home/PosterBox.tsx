@@ -1,15 +1,17 @@
-"use client";
+"use client"
 
 import styled from "styled-components"
 import Image from "next/image"
 import Link from "next/link"
 
-const PosterBox = ({key, circle, title, image, description} : {key: number; circle: boolean; title: string; image: string; description: string; }) =>{
+const PosterBox = ({id, circle, title, image, description} : {id: number; circle: boolean; title: string; image: string; description: string; }) =>{
     return(
-        <Container circle = {circle} image = {image}>
+        <Container circle = {circle}>
             <Link href={{
-                pathname: `/${key}`
-                query: {id: key, title: title, image: image, description: description,},}} as={`/${key}`}/>
+                pathname: `/MainPage/${id}/${title}/${image}/${description}`,
+                }} as={`/MainPage/${id}`}>
+            <ImageBox circle = {circle} image = {image}/>        
+            </Link>
         </Container>
 
     );
@@ -17,7 +19,13 @@ const PosterBox = ({key, circle, title, image, description} : {key: number; circ
 
 export default PosterBox;
 
-const Container = styled.div<{circle: boolean; image: string;}>`
+const Container = styled.div<{circle: boolean;}>`
+    width: 110px;
+    height: ${(props) => (props.circle ? '105px' : '163px')};
+
+`
+
+const ImageBox = styled.button<{circle: boolean; image: string;}>`
     background-image: url(${props => props.image});
     background-size: cover;
     width: 103px;
