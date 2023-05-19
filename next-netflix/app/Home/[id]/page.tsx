@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { GetServerSideProps } from "next";
 import styled from 'styled-components'
 import styles from '../../styles/home.module.css'
-import SearchHydrate from "@/app/Search/SearchHydrate";
+import SearchHydrate from "@/app/Search/page";
 import { useRecoilValue } from 'recoil';
 import { activeMovie } from "../../recoil";
 import { FaPlay } from "react-icons/fa";
@@ -31,8 +31,8 @@ export default function Page() {
         <div style={boldText}>Play</div>
       </PlayButton>
       <InfoBox>
-        <TitleBox>{movieInform.title}</TitleBox>
-        <DesBox>{movieInform.description}</DesBox>
+        <TitleBox key="title">{movieInform.title}</TitleBox>
+        <DesBox key="description">{movieInform.description}</DesBox>
       </InfoBox>
 
       <Navigation/>
