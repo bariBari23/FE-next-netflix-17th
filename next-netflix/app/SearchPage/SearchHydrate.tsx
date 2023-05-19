@@ -1,12 +1,9 @@
   "use client";
 
-  // import { User } from "../types";
-  // import { useDebounce } from "react-use";
   import { AiOutlineSearch, AiOutlinePlayCircle } from "react-icons/ai";
   import { GrFormClose } from "react-icons/gr";
   import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
-  import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
-  import { getSearchData } from "../api";
+  import React, { useEffect, useRef, useState } from "react";
   import { styled } from "styled-components";
   import { IMovie } from "../interface/interface";
   import {scroll} from "../SearchPage/scroll"
@@ -23,8 +20,6 @@
         const apiKey = process.env.NEXT_PUBLIC_API_KEY;
         const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchInput}&page=${pageParam}`);
         const searchData = await res.json() as IMovie[];
-        // console.log("searchdata : " , searchData);
-        // setSearchResults(searchData);
         return searchData;
       };
 
@@ -32,8 +27,6 @@
         const apiKey = process.env.NEXT_PUBLIC_API_KEY;
         const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
         const popularData = await res.json() as IMovie[];
-        // console.log("popData : " , popularData);
-        // setSearchResults(popul arData);
         return popularData;
       };
       
@@ -68,7 +61,7 @@
         }
       };
 
-      // useObserver로 bottom ref와 onIntersect를 넘겨 주자.
+      // useObserver로 bottom ref와 onIntersect를 넘겨
       scroll({
         target: bottom,
         onIntersect,
@@ -82,7 +75,7 @@
         // console.log("searchResults는", searchResults);
         // console.log(JSON.stringify(searchResults));
 
-        setIsDataLoading(false); // 데이터 로드 완료 후 isLoad 값을 false로 설정
+        setIsDataLoading(false); // 데이터 로드 완료 후 isLoading 값을 false로 설정
       }
     }, [data]);
 
@@ -103,15 +96,19 @@
           
           <ListWrapper>
             <h3>Top Searches</h3>
-            {!isQueryLoading && !isDataLoading && (
+            {!isQueryLoading && !isDataLoading && !isFetching && data && data.pages && ( 
             <List>
               {searchResults.map((movie) => (
                 <LittleList key={movie.id}>
-                  {movie.poster_path && (
-                    <Img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
+                  {movie.id ? (
+                    <>
+                      <Img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
+                      <h3>{movie.title}</h3>
+                      <AiOutlinePlayCircle/>
+                    </>
+                  ) : (
+                    <h3>No poster and title available</h3>
                   )}
-                  <h3>{movie.title}</h3>
-                  <AiOutlinePlayCircle/>
                 </LittleList>
               ))}
               <div ref={bottom} />
@@ -121,6 +118,95 @@
         </Wrapper>
       );
     }
+    // export default function SearchHydrate() {
+    //   const [searchInput, setSearchInput] = useState('');
+    //   const [searchResults, setSearchResults] = useState<IMovie[]>([]);
+  
+    //   const fetchSearchData = async ({ pageParam = 1 }) => {
+    //     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    //     const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
+    //     const fetchData = await res.json();
+    //     return fetchData;
+    //   };
+  
+    //   const bottom = useRef(null)
+  
+    //   const {
+    //     data,
+    //     error,
+    //     fetchNextPage,
+    //     hasNextPage,
+    //     isFetching,
+    //     isLoading,
+    //   } = useInfiniteQuery({
+    //     queryKey: ['searchData'],
+    //     queryFn: fetchSearchData,
+    //     getNextPageParam: (lastPage: any) => {
+    //       const currentPage = lastPage?.[lastPage.length - 1]?.page || 1;
+    //       return currentPage + 1;
+    //     }
+    //   });
+  
+    //   const onIntersect: IntersectionObserverCallback = ([entry], observer) => {
+    //     if (entry.isIntersecting) {
+    //       fetchNextPage();
+    //       console.log('Intersection observed:', entry);
+    //     }
+    //   };
+  
+    //   // useObserver로 bottom ref와 onIntersect를 넘겨 주자.
+    //   scroll({
+    //     target: bottom,
+    //     onIntersect,
+    // })
+  
+    // useEffect(() => {
+    //   if (data) {
+    //     const newMovies = data.pages.flatMap((page) => page.results);
+  
+    //     // 중복 제거 로직 추가
+    //     const uniqueMovies = Array.from(new Set([...searchResults.map(movie => movie.id), ...newMovies.map(movie => movie.id)]))
+    //     .map(id => newMovies.find(movie => movie.id === id));
+  
+    //     setSearchResults(uniqueMovies);
+    //   }
+    // }, [data]);
+  
+    //   return (
+    //     <Wrapper>
+    //       <SearchBar>
+    //         <AiOutlineSearch style={{color : "#C4C4C4", width : '30px'}} />
+    //         <SearchInput 
+    //         placeholder="Search for a show, movie, genre, e.t.c" 
+    //         value={searchInput}
+    //         onChange={(e) => setSearchInput(e.target.value)}/>
+    //         <GrFormClose style={{color : "red", width : '30px'}} />
+    //       </SearchBar>
+  
+    //       <ListWrapper>
+    //         <h3>Top Searches</h3>
+    //         <List>
+    //           {searchResults.map((movie) => (
+    //             <LittleList key={movie.id}>
+    //               {movie.poster_path && (
+    //                 <Img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
+    //               )}
+    //               <h3>{movie.title}</h3>
+    //               <AiOutlinePlayCircle/>
+    //             </LittleList>
+    //           ))}
+  
+  
+    //           <div ref={bottom} />
+  
+    //           {isLoading && <p>Loading...</p>}
+    //         </List>
+  
+    //       </ListWrapper>
+  
+    //     </Wrapper>
+    //   );
+    // }
 
   const Wrapper = styled.div`
     height: 100%;
