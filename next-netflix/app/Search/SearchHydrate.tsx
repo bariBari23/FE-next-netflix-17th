@@ -6,7 +6,7 @@
   import React, { useEffect, useRef, useState } from "react";
   import { styled } from "styled-components";
   import { IMovie } from "../interface/interface";
-  import {scroll} from "../SearchPage/scroll"
+  import {scroll} from "./scroll"
 
 
   export default function SearchHydrate() {
