@@ -20,3 +20,15 @@ export interface IMoviePoster{
     id: number,
     posterImg: string,
 }
+
+export interface IActiveMovie{
+    title: string,
+    image: string,
+    description: string,
+}
+
+export interface IUser{
+    userId: number,
+    userName: string,
+}
+
