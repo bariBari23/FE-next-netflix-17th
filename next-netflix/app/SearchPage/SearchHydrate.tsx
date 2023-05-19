@@ -20,6 +20,7 @@
         const apiKey = process.env.NEXT_PUBLIC_API_KEY;
         const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchInput}&page=${pageParam}`);
         const searchData = await res.json() as IMovie[];
+        console.log("나는 search할 때 ")
         return searchData;
       };
 
@@ -27,6 +28,7 @@
         const apiKey = process.env.NEXT_PUBLIC_API_KEY;
         const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
         const popularData = await res.json() as IMovie[];
+        console.log("나는 popular 때 ")
         return popularData;
       };
       
@@ -98,19 +100,23 @@
             <h3>Top Searches</h3>
             {!isQueryLoading && !isDataLoading && !isFetching && data && data.pages && ( 
             <List>
-              {searchResults.map((movie) => (
-                <LittleList key={movie.id}>
-                  {movie.id ? (
-                    <>
+              {searchResults.map((movie) => {
+                console.log(searchResults);
+                console.log("이건 무비", movie);
+                // console.log(JSON.stringify(searchResults));
+                return (
+                <div key={movie.id}>
+                  {movie.id > 0 ? (
+                    <LittleList>
                       <Img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
                       <h3>{movie.title}</h3>
                       <AiOutlinePlayCircle/>
-                    </>
+                    </LittleList>
                   ) : (
                     <h3>No poster and title available</h3>
                   )}
-                </LittleList>
-              ))}
+                </div>
+    )})}
               <div ref={bottom} />
             </List>
             )}
@@ -118,95 +124,7 @@
         </Wrapper>
       );
     }
-    // export default function SearchHydrate() {
-    //   const [searchInput, setSearchInput] = useState('');
-    //   const [searchResults, setSearchResults] = useState<IMovie[]>([]);
-  
-    //   const fetchSearchData = async ({ pageParam = 1 }) => {
-    //     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-    //     const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
-    //     const fetchData = await res.json();
-    //     return fetchData;
-    //   };
-  
-    //   const bottom = useRef(null)
-  
-    //   const {
-    //     data,
-    //     error,
-    //     fetchNextPage,
-    //     hasNextPage,
-    //     isFetching,
-    //     isLoading,
-    //   } = useInfiniteQuery({
-    //     queryKey: ['searchData'],
-    //     queryFn: fetchSearchData,
-    //     getNextPageParam: (lastPage: any) => {
-    //       const currentPage = lastPage?.[lastPage.length - 1]?.page || 1;
-    //       return currentPage + 1;
-    //     }
-    //   });
-  
-    //   const onIntersect: IntersectionObserverCallback = ([entry], observer) => {
-    //     if (entry.isIntersecting) {
-    //       fetchNextPage();
-    //       console.log('Intersection observed:', entry);
-    //     }
-    //   };
-  
-    //   // useObserver로 bottom ref와 onIntersect를 넘겨 주자.
-    //   scroll({
-    //     target: bottom,
-    //     onIntersect,
-    // })
-  
-    // useEffect(() => {
-    //   if (data) {
-    //     const newMovies = data.pages.flatMap((page) => page.results);
-  
-    //     // 중복 제거 로직 추가
-    //     const uniqueMovies = Array.from(new Set([...searchResults.map(movie => movie.id), ...newMovies.map(movie => movie.id)]))
-    //     .map(id => newMovies.find(movie => movie.id === id));
-  
-    //     setSearchResults(uniqueMovies);
-    //   }
-    // }, [data]);
-  
-    //   return (
-    //     <Wrapper>
-    //       <SearchBar>
-    //         <AiOutlineSearch style={{color : "#C4C4C4", width : '30px'}} />
-    //         <SearchInput 
-    //         placeholder="Search for a show, movie, genre, e.t.c" 
-    //         value={searchInput}
-    //         onChange={(e) => setSearchInput(e.target.value)}/>
-    //         <GrFormClose style={{color : "red", width : '30px'}} />
-    //       </SearchBar>
-  
-    //       <ListWrapper>
-    //         <h3>Top Searches</h3>
-    //         <List>
-    //           {searchResults.map((movie) => (
-    //             <LittleList key={movie.id}>
-    //               {movie.poster_path && (
-    //                 <Img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
-    //               )}
-    //               <h3>{movie.title}</h3>
-    //               <AiOutlinePlayCircle/>
-    //             </LittleList>
-    //           ))}
-  
-  
-    //           <div ref={bottom} />
-  
-    //           {isLoading && <p>Loading...</p>}
-    //         </List>
-  
-    //       </ListWrapper>
-  
-    //     </Wrapper>
-    //   );
-    // }
+    
 
   const Wrapper = styled.div`
     height: 100%;
