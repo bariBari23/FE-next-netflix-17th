@@ -6,7 +6,7 @@ import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { IMovie } from "../interface/interface";
-import {scroll} from "./scroll"
+import { Scroll } from "./Scroll"
 import Navigation from "../components/Navigation/Navigation";
 import styles from "../styles/home.module.css"
 
@@ -55,7 +55,7 @@ export default function SearchHydrate() {
   const onIntersect = ([entry]: IntersectionObserverEntry[]) => entry.isIntersecting && fetchNextPage()
 
   // useObserver로 bottom ref와 onIntersect를 넘겨줌
-  scroll({
+  Scroll({
     target: bottom,
     onIntersect,
   })

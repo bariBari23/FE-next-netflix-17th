@@ -23,8 +23,8 @@ export default function Page() {
     <div className={styles.container} align-items="center">
         <Title>넷플릭스를 시청할 프로필을 선택하세요.</Title>
         <BigProfileBox>
-            {userInfo.map((user,index) => (
-                <Link href={`/Home`} as={`/Home`}>  
+            {userInfo.map((user, index) => (
+                <Link href={`/Home`} as={`/Home`} key={user.userId}>  
                     <ProfileBox onClick = {() => handleUser(user.userId, user.userName)}>
                         <ProfileImage src= {`/image/${user.userName}.jpeg`}/>
                         <ProfileName>{user.userName}</ProfileName>
