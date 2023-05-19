@@ -25,9 +25,9 @@ import React from "react";
 import "../app/styles/globals.css";
 import { RecoilRoot } from "recoil";
 
-export const metadata = {
+/*export const metadata = {
   title: "Nextflix",
-};
+};*/
 
 export default function RootLayout({
   children,
