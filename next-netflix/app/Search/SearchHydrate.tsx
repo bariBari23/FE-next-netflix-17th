@@ -6,7 +6,7 @@ import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { IMovie } from "../interface/interface";
-import {scroll} from "../SearchPage/scroll"
+import {scroll} from "./scroll"
 import Navigation from "../components/Navigation/Navigation";
 import styles from "../styles/home.module.css"
 
@@ -87,8 +87,11 @@ export default function SearchHydrate() {
         <TitleText>Top Searches</TitleText>
         {!isQueryLoading && !isDataLoading && !isFetching && data && data.pages && (
           <List>
-            {searchResults.map((movie) => (
-              movie.results.map((result) => (
+          {searchResults.map((movie) => {
+            console.log(movie); // movie 로그 출력
+            return movie.results.map((result) => {
+              console.log(result); // result 로그 출력
+              return (
                 <div key={result.id}>
                   {result.id ? (
                     <InnerList>
@@ -100,13 +103,13 @@ export default function SearchHydrate() {
                     <h3>No poster and title available</h3>
                   )}<div ref={bottom} />
                 </div>
-              ))
-            ))}<div ref={bottom} />
-          </List>
-        
+              );
+            });
+          })}
+          <div ref={bottom} />
+        </List>
         )}
       </ListWrapper>
-      <div ref={bottom} />
       <Navigation/>
     </div>
   );

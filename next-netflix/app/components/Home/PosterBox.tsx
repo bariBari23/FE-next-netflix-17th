@@ -22,7 +22,7 @@ const PosterBox = ({id, circle, title, image, description} : {id: number; circle
 
     return(
         <Container circle = {circle}>
-            <Link href={`/MainPage/${id}`} as={`/MainPage/${id}`} >
+            <Link href={`/Home/${id}`} as={`/Home/${id}`} >
             <ImageBox circle = {circle} image = {image} onClick={handleActiveMovie}/>        
             </Link>
         </Container>
