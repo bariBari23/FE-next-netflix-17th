@@ -9,74 +9,59 @@
   import {scroll} from "../SearchPage/scroll"
 
 
-    export default function SearchHydrate() {
-      const [searchInput, setSearchInput] = useState('');
-      const [searchResults, setSearchResults] = useState<IMovie[]>([]);
-      const [isDataLoading, setIsDataLoading] = useState(false); // isLoading 상태 추가
+  export default function SearchHydrate() {
+    const [searchInput, setSearchInput] = useState('');
+    const [searchResults, setSearchResults] = useState<IMovie[]>([]);
+    const [isDataLoading, setIsDataLoading] = useState(false); // isLoading 상태 추가
+    const bottom = useRef(null); 
 
+    const fetchSearchData = async ({ queryKey, pageParam = 1 }: { queryKey: [string]; pageParam?: number | undefined }) => {
+      const searchInput = queryKey[0];
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+      const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchInput}&page=${pageParam}`);
+      const searchData = await res.json() as IMovie[];
+      return searchData;
+    };
 
-      const fetchSearchData = async ({ queryKey, pageParam = 1 }: { queryKey: [string]; pageParam?: number | undefined }) => {
-        const searchInput = queryKey[0];
-        const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-        const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchInput}&page=${pageParam}`);
-        const searchData = await res.json() as IMovie[];
-        console.log("나는 search할 때 ")
-        return searchData;
-      };
-
-      const fetchPopularData = async ({pageParam = 1 }: { pageParam?: number | undefined } ) => {
-        const apiKey = process.env.NEXT_PUBLIC_API_KEY;
-        const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
-        const popularData = await res.json() as IMovie[];
-        console.log("나는 popular 때 ")
-        return popularData;
-      };
-      
-
-      const bottom = useRef(null);
-
-      const {
-        data,
-        error,
-        fetchNextPage,
-        hasNextPage,
-        isFetching,
-        isLoading : isQueryLoading,
-      } = useInfiniteQuery(
-        ['searchData', searchInput],
-        ({ pageParam }) => {
-          return searchInput
-          ? fetchSearchData({ queryKey: [searchInput], pageParam })
-          : fetchPopularData({ pageParam });
-        },
-        {
-          getNextPageParam: (lastPage) => {
-            const currentPage = lastPage?.[lastPage.length - 1]?.page || 1;
-            return currentPage + 1;
-          }
+    const fetchPopularData = async ({pageParam = 1 }: { pageParam?: number | undefined } ) => {
+      const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+      const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
+      const popularData = await res.json() as IMovie[];
+      return popularData;
+    };
+  
+    const {
+      data,
+      fetchNextPage,
+      isFetching,
+      isLoading : isQueryLoading,
+    } = useInfiniteQuery(
+      ['searchData', searchInput],
+      ({ pageParam }) => {
+        return searchInput
+        ? fetchSearchData({ queryKey: [searchInput], pageParam })
+        : fetchPopularData({ pageParam });
+      },
+      {
+        getNextPageParam: (lastPage) => {
+          const currentPage = lastPage?.[lastPage.length - 1]?.page || 1;
+          return currentPage + 1;
         }
-      );
+      }
+    );
 
-      const onIntersect: IntersectionObserverCallback = ([entry], observer) => {
-        if (entry.isIntersecting) {
-          fetchNextPage();
-        }
-      };
+    const onIntersect = ([entry]: IntersectionObserverEntry[]) => entry.isIntersecting && fetchNextPage()
 
-      // useObserver로 bottom ref와 onIntersect를 넘겨
-      scroll({
-        target: bottom,
-        onIntersect,
+    // useObserver로 bottom ref와 onIntersect를 넘겨줌
+    scroll({
+      target: bottom,
+      onIntersect,
     })
-    
+  
     useEffect(() => {
       if (data) {
         const updatedResults = data.pages.flatMap((page) => page);
         setSearchResults(updatedResults);
-        // console.log(updatedResults);
-        // console.log("searchResults는", searchResults);
-        // console.log(JSON.stringify(searchResults));
-
         setIsDataLoading(false); // 데이터 로드 완료 후 isLoading 값을 false로 설정
       }
     }, [data]);
@@ -85,45 +70,44 @@
       setIsDataLoading(isQueryLoading);
     }, [isQueryLoading]);
 
-      return (
-        <Wrapper>
-          <SearchBar>
-            <AiOutlineSearch style={{color : "#C4C4C4", width : '30px'}} />
-            <SearchInput 
-            placeholder="Search for a show, movie, genre, e.t.c" 
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}/>
-            <GrFormClose style={{color : "red", width : '30px'}} />
-          </SearchBar>
-          
-          <ListWrapper>
-            <h3>Top Searches</h3>
-            {!isQueryLoading && !isDataLoading && !isFetching && data && data.pages && ( 
+    return (
+      <Wrapper>
+        <SearchBar>
+          <AiOutlineSearch style={{color : "#C4C4C4", width : '30px'}} />
+          <SearchInput 
+          placeholder="Search for a show, movie, genre, e.t.c" 
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}/>
+          <GrFormClose style={{color : "red", width : '30px'}} />
+        </SearchBar>
+        
+        <ListWrapper>
+          <h3>Top Searches</h3>
+          {!isQueryLoading && !isDataLoading && !isFetching && data && data.pages && (
             <List>
-              {searchResults.map((movie) => {
-                console.log(searchResults);
-                console.log("이건 무비", movie);
-                // console.log(JSON.stringify(searchResults));
-                return (
-                <div key={movie.id}>
-                  {movie.id > 0 ? (
-                    <LittleList>
-                      <Img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} />
-                      <h3>{movie.title}</h3>
-                      <AiOutlinePlayCircle/>
-                    </LittleList>
-                  ) : (
-                    <h3>No poster and title available</h3>
-                  )}
-                </div>
-    )})}
-              <div ref={bottom} />
+              {searchResults.map((movie) => (
+                movie.results.map((result) => (
+                  <div key={result.id}>
+                    {result.id ? (
+                      <LittleList>
+                        <Img src={`https://image.tmdb.org/t/p/original${result.poster_path}`} alt={result.title} />
+                        <h3>{result.title}</h3>
+                        <AiOutlinePlayCircle />
+                      </LittleList>
+                    ) : (
+                      <h3>No poster and title available</h3>
+                    )}<div ref={bottom} />
+                  </div>
+                ))
+              ))}<div ref={bottom} />
             </List>
-            )}
-          </ListWrapper>  
-        </Wrapper>
-      );
-    }
+          
+          )}
+        </ListWrapper>
+        <div ref={bottom} />
+      </Wrapper>
+    );
+  }
     
 
   const Wrapper = styled.div`
@@ -144,6 +128,8 @@
     left: 0px;
     top: 44px;
     background: #424242;
+    margin: 44px 0px 15px;
+    position: sticky;
   `;
 
   const SearchInput = styled.input`
@@ -165,7 +151,6 @@
     display: flex;
     flex-direction: column;
     gap: 3px;
-
   `;
 
   const LittleList = styled.div`
