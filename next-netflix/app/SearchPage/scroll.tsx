@@ -24,7 +24,6 @@ export const scroll = ({
       });
     
       observer.observe(target.current);
-      console.log('Observer started observing:', target);
     }
 
     return () => {
