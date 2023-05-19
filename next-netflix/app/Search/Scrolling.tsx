@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const Scroll = ({
+export const Scrolling = ({
   target,
   onIntersect,
   root = null,
