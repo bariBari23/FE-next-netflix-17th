@@ -1,9 +1,12 @@
 "use client"
 import styled from 'styled-components';
 import NavItem from './NavItem';
+import { useRecoilValue } from 'recoil';
+import { activeUser } from "../../recoil";
 
 
 const Navigation = () =>{
+    const user = useRecoilValue(activeUser);
     return(
         <Container>
             <NavBar>
@@ -11,7 +14,9 @@ const Navigation = () =>{
                 <NavItem icon = "Search"/>
                 <NavItem icon = "Coming Soon"/>
                 <NavItem icon = "Downloads"/>
-                <NavItem icon = "More"/>
+                <ProfileBox>
+                  <Profile src = {`/image/${user.userName}.jpeg`}/>
+                </ProfileBox> 
             </NavBar>
         </Container>
     );
@@ -38,6 +43,19 @@ const NavBar = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+
+`
+const ProfileBox = styled.div`
+    display: flex;
+    height: 48px;
+    width: 80px;
+    align-items: center;
+`
+const Profile = styled.img`
+  width: 48px;
+  border-radius: 100%;
+  margin-left: 20px;
+  border: solid white 2px ;
 
 `
 

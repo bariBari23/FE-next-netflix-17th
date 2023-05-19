@@ -2,11 +2,15 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import {useRecoilState} from 'recoil';
 import { activeIcon } from '../../recoil';
+import { useRouter } from 'next/navigation';
+
 
 const NavItem = ({icon}: {icon: string}) =>{
     const [active, setActivePage] = useRecoilState(activeIcon);
+    const router = useRouter();
     const activeIcons = (e: React.MouseEvent<HTMLButtonElement>) =>{
         setActivePage(icon);
+        router.push(`/${icon}`);
     }
     return(
         <NavIconBox onClick = {activeIcons}>

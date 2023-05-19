@@ -1,5 +1,7 @@
 "use client"
 
+import { IMovie } from "../app/interface/interface"
+
 import axios from "axios";
 
 const api = axios.create({
@@ -23,3 +25,14 @@ export const MovieApi = {
         }
     })
 }
+
+export async function getSearchData() {
+  //api key .env 파일에 저장한 상태
+  const apiKey = "4a427cc6585f047c91a2fa3483fb8d31";
+  const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
+  const datas = (await res.json()) as IMovie[];
+  return datas;
+}
+
+
+

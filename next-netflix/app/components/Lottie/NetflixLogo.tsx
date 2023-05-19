@@ -21,7 +21,7 @@ function Logo(){
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     const goToMain = setTimeout(()=>{
-        router.push('/MainPage');
+        router.push('/ProfilePage');
     }, 4400)
 
     useEffect(() => {

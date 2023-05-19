@@ -41,8 +41,8 @@ export default function Header() {
 
     return (
        
-      <Wrapper>
-        <Top>
+      <div>
+        <div>
             <HeaderNavigator>
                 <Image src="/image/netflix.png" alt="" width={"57"} height={"57"}/>
                 <HeaderText>TV Shows</HeaderText> 
@@ -50,7 +50,7 @@ export default function Header() {
                 <HeaderText>My List</HeaderText> 
             </HeaderNavigator>
             {backdropPath && <HeaderImg src={imageSrc} />}
-        </Top>
+        </div>
         <Bottom>
             <BottomSub>
                 <AiOutlinePlus size={25}/>
@@ -65,17 +65,9 @@ export default function Header() {
                 <div>Info</div>
             </BottomSub>
         </Bottom>
-      </Wrapper>
+      </div>
     )
   }
-
-const Wrapper = styled.div`
-
-`;
-
-const Top = styled.div`
-
-`;
 
 const HeaderNavigator = styled.div`
   display: flex;
