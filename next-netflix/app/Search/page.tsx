@@ -19,14 +19,14 @@ export default function SearchHydrate() {
 
   const fetchSearchData = async ({ queryKey, pageParam = 1 }: { queryKey: [string]; pageParam?: number | undefined }) => {
     const searchInput = queryKey[0];
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    const apiKey = "4a427cc6585f047c91a2fa3483fb8d31";
     const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchInput}&page=${pageParam}`);
     const searchData = await res.json() as IMovie[];
     return searchData;
   };
 
   const fetchPopularData = async ({pageParam = 1 }: { pageParam?: number | undefined } ) => {
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+    const apiKey = "4a427cc6585f047c91a2fa3483fb8d31";
     const res = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageParam}`);
     const popularData = await res.json() as IMovie[];
     return popularData;
