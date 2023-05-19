@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { GetServerSideProps } from "next";
 import styled from 'styled-components'
 import styles from '../../styles/home.module.css'
-import SearchHydrate from "@/app/SearchPage/SearchHydrate";
+import SearchHydrate from "@/app/Search/SearchHydrate";
 import { useRecoilValue } from 'recoil';
 import { activeMovie } from "../../recoil";
 import { FaPlay } from "react-icons/fa";

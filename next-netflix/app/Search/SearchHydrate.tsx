@@ -6,7 +6,7 @@ import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { IMovie } from "../interface/interface";
-import {scroll} from "../SearchPage/scroll"
+import {scroll} from "./scroll"
 import Navigation from "../components/Navigation/Navigation";
 import styles from "../styles/home.module.css"
 
