@@ -26,3 +26,7 @@ body {
   font-family: 'SFProDisplay' ;
   src: url('../../public/font/SFPRODISPLAYREGULAR.OTF');
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
