@@ -16,6 +16,13 @@ export interface IMovie{
     page: number,
 }
 
+export interface IApiResponse{
+    page: number;
+    results: IMovie[];
+    total_pages: number;
+    total_results: number;
+}
+
 export interface IMoviePoster{
     id: number,
     posterImg: string,

@@ -25,6 +25,7 @@ import React from "react";
 import "../app/styles/globals.css";
 import { RecoilRoot } from "recoil";
 
+
 /*export const metadata = {
   title: "Nextflix",
 };*/

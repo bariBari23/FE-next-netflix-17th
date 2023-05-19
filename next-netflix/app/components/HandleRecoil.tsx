@@ -23,7 +23,7 @@ function HandleRecoil(){
             }
         };
         fetchTopRatedMovies();
-    }, [setTopRatedMovies]);
+    }, []);
 
     const [ nowPlayingMovies, setNowPlayingMovies ] = useRecoilState(nowPlayingMoviesRecoil);
 
@@ -37,7 +37,7 @@ function HandleRecoil(){
             }
         };
         fetchNowPlayingMovies();
-    }, [setNowPlayingMovies]);
+    }, []);
 
     const [ previewMovies, setPreviewMovies ] = useRecoilState(previewMoviesRecoil);
 
@@ -51,7 +51,7 @@ function HandleRecoil(){
             }
         };
         fetchPreviewMovies();
-    }, [setPreviewMovies]);
+    }, []);
 
     const [ popularMovies, setPopularMovies ] = useRecoilState(popularMoviesRecoil);
 
@@ -65,7 +65,7 @@ function HandleRecoil(){
             }
         };
         fetchPopularMovies();
-    }, [setPopularMovies]);
+    }, []);
     return null;
 }
 
