@@ -21,7 +21,7 @@ export default function Home() {
   return (
     
     <div className={styles.container}>
-        <Navigation/>
+        
         <Header></Header>
         
         <TitleText style={{ fontSize: '26.75px' }}>Previews</TitleText>
@@ -68,6 +68,7 @@ export default function Home() {
             )}
         </MovieSlider>
         
+        <Navigation/>
         
     </div>
   )

@@ -82,7 +82,7 @@
         </SearchBar>
         
         <ListWrapper>
-          <h3>Top Searches</h3>
+          <TitleText>Top Searches</TitleText>
           {!isQueryLoading && !isDataLoading && !isFetching && data && data.pages && (
             <List>
               {searchResults.map((movie) => (
@@ -91,8 +91,8 @@
                     {result.id ? (
                       <LittleList>
                         <Img src={`https://image.tmdb.org/t/p/original${result.poster_path}`} alt={result.title} />
-                        <h3>{result.title}</h3>
-                        <AiOutlinePlayCircle />
+                        <MovieTitle>{result.title}</MovieTitle>
+                        <AiOutlinePlayCircle size="24"/>
                       </LittleList>
                     ) : (
                       <h3>No poster and title available</h3>
@@ -129,7 +129,6 @@
     top: 44px;
     background: #424242;
     margin: 44px 0px 15px;
-    position: sticky;
   `;
 
   const SearchInput = styled.input`
@@ -156,6 +155,7 @@
   const LittleList = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
   `;
 
   const Img = styled.img`
@@ -169,3 +169,24 @@
     object-fit: cover;
   }
   `;
+
+  const TitleText = styled.div`
+    font-size: 27px;
+    color: white;
+    font-weight: 700;
+    margin-left: 16px;
+    margin-bottom: 14px;
+`
+
+  const MovieTitle = styled.div`
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14.7222px;
+    line-height: 30px;
+    letter-spacing: 0.751111px;
+    padding-left: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: white;
+  `
