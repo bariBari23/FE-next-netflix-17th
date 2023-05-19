@@ -13,7 +13,6 @@ import Navigation from "@/app/components/Navigation/Navigation";
 
 export default function Page() {
   const movieInform = useRecoilValue(activeMovie);
-  console.log(movieInform.image);
 
   //Play font style
   const boldText = {
