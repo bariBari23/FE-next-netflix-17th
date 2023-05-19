@@ -3,14 +3,27 @@
 import styled from "styled-components"
 import Image from "next/image"
 import Link from "next/link"
+import { useRecoilState } from 'recoil';
+import { activeMovie } from '../../recoil';
+import { useEffect } from "react";
+import { IActiveMovie } from "@/app/interface/interface";
 
 const PosterBox = ({id, circle, title, image, description} : {id: number; circle: boolean; title: string; image: string; description: string; }) =>{
+
+    const [movieInform, setMovieInform] = useRecoilState(activeMovie);
+    const handleActiveMovie = () => {
+        const updatedMovieInform : IActiveMovie = {
+            title: title,
+            image: image,
+            description: description,
+        };
+        setMovieInform([updatedMovieInform]);
+    }
+    
     return(
         <Container circle = {circle}>
-            <Link href={{
-                pathname: `/MainPage/${id}/${title}/${image}/${description}`,
-                }} as={`/MainPage/${id}`}>
-            <ImageBox circle = {circle} image = {image}/>        
+            <Link href={`/MainPage/${id}`} as={`/MainPage/${id}`} >
+            <ImageBox circle = {circle} image = {image} onClick={handleActiveMovie}/>        
             </Link>
         </Container>
 

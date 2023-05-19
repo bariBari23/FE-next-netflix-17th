@@ -6,21 +6,24 @@ import { GetServerSideProps } from "next";
 import styled from 'styled-components'
 import styles from '../../styles/home.module.css'
 import SearchHydrate from "@/app/SearchPage/SearchHydrate";
+import { useRecoilValue } from 'recoil';
+import { activeMovie } from "../../recoil";
 
-export default function Page({
-  params,
-  searchParams,
-}: {
-  params: { id: number, title: string, image: string, description: string };
-  searchParams: { [title: string]: string | string[] | undefined };
-}) {
-  console.log(params);
-  console.log(searchParams);
-  return <h1>My Page</h1>;
+export default function Page() {
+  const movieInform = useRecoilValue(activeMovie);
+  console.log(movieInform[0].image);
+  return (
+    <div className={styles.container}>
+      <PosterBox src = {movieInform[0].image}/>
+      <TitleBox>{movieInform[0].title}</TitleBox>
+      <DesBox>{movieInform[0].description}</DesBox>
+    </div>
+  );
 }
 const PosterBox = styled.img`
   width: 100%;
-  height: 415px;
+  height: 100%;
+  margin: 1rem 0 1rem 0;
 `
 const TitleBox = styled.div`
   font-size: 27px;

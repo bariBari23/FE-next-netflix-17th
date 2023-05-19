@@ -1,6 +1,6 @@
 "use client";
 
-import { IMovie } from './interface/interface';
+import { IActiveMovie, IMovie } from './interface/interface';
 import { atom } from 'recoil';
 
 
@@ -27,5 +27,10 @@ export const nowPlayingMoviesRecoil = atom<IMovie[]>({
 export const activeIcon = atom<string>({
     key: 'activeIcon',
     default: 'Home'
+})
+
+export const activeMovie = atom<IActiveMovie[]>({
+    key: 'activeMovie',
+    default: []
 })
 
