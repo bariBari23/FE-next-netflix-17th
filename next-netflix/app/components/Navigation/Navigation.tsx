@@ -7,6 +7,7 @@ import { activeUser } from "../../recoil";
 
 const Navigation = () =>{
     const user = useRecoilValue(activeUser);
+    console.log(user);
     return(
         <Container>
             <NavBar>
