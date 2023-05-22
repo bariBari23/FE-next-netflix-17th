@@ -5,10 +5,14 @@ import { GrFormClose } from "react-icons/gr";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import React, { useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
-import { IMovie } from "../interface/interface";
+import { IActiveMovie, IMovie } from "../interface/interface";
 import { Scrolling } from "../Search/Scrolling"
 import Navigation from "../components/Navigation/Navigation";
 import styles from "../styles/home.module.css"
+import Link from "next/link";
+import result from "postcss/lib/result";
+import { useRecoilState } from "recoil";
+import { activeMovie } from "../recoil";
 
 
 export default function SearchHydrate() {
@@ -16,6 +20,15 @@ export default function SearchHydrate() {
   const [searchResults, setSearchResults] = useState<IMovie[]>([]);
   const [isDataLoading, setIsDataLoading] = useState(false); // isLoading 상태 추가
   const bottom = useRef(null); 
+  const [movieInform, setMovieInform] = useRecoilState(activeMovie);
+    const handleActiveMovie = (title: string, image: string, description: string) => {
+        const updatedMovieInform : IActiveMovie = {
+            title: title,
+            image: `https://image.tmdb.org/t/p/original${image}`,
+            description: description,
+        };
+        setMovieInform(updatedMovieInform);
+    }
 
   const fetchSearchData = async ({ queryKey, pageParam = 1 }: { queryKey: [string]; pageParam?: number | undefined }) => {
     const searchInput = queryKey[0];
@@ -94,11 +107,13 @@ export default function SearchHydrate() {
               return (
                 <div key={result.id}>
                   {result.id ? (
-                    <InnerList>
-                      <Img src={`https://image.tmdb.org/t/p/original${result.poster_path}`} alt={result.title} />
-                      <MovieTitle>{result.title}</MovieTitle>
-                      <AiOutlinePlayCircle size="24"/>
-                    </InnerList>
+                    <Link href={`/Home/${result.id}`} as={`/Home/${result.id}`} >
+                      <InnerList onClick={() => handleActiveMovie(result.title, result.poster_path, result.overview)}>
+                        <Img src={`https://image.tmdb.org/t/p/original${result.poster_path}`} alt={result.title} />
+                        <MovieTitle>{result.title}</MovieTitle>
+                        <AiOutlinePlayCircle size="24"/>
+                      </InnerList>
+                    </Link>
                   ) : (
                     <h3>No poster and title available</h3>
                   )}<div ref={bottom} />
@@ -148,7 +163,7 @@ const List = styled.div`
   flex-direction: column;
 `;
 
-const InnerList = styled.div`
+const InnerList = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-between;
