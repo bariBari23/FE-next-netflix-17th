@@ -72,6 +72,7 @@ export default function SearchHydrate() {
     target: bottom,
     onIntersect,
   })
+ 
 
   useEffect(() => {
     if (data) {
@@ -88,12 +89,12 @@ export default function SearchHydrate() {
   return (
     <div className={styles.container}>
       <SearchBar>
-        <AiOutlineSearch style={{color : "#C4C4C4", width : '30px'}} />
+        <AiOutlineSearch color="#C4C4C4" size={30}/>
         <SearchInput 
         placeholder="Search for a show, movie, genre, e.t.c" 
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}/>
-        <GrFormClose style={{color : "red", width : '30px'}} />
+        <GrFormClose color="#C4C4C4" size={30}/>
       </SearchBar>
       
       <ListWrapper>
@@ -101,31 +102,34 @@ export default function SearchHydrate() {
         {!isQueryLoading && !isDataLoading && !isFetching && data && data.pages && (
           <List>
           {searchResults.map((movie) => {
-            console.log(movie); // movie 로그 출력
             return movie.results.map((result) => {
-              console.log(result); // result 로그 출력
               return (
                 <div key={result.id}>
                   {result.id ? (
                     <Link href={`/Home/${result.id}`} as={`/Home/${result.id}`} >
                       <InnerList onClick={() => handleActiveMovie(result.title, result.poster_path, result.overview)}>
+                        {result.poster_path === null ? ( (
+                        <Img src="/Netflix_Logo.png" alt={result.title} />
+                        )) : (
                         <Img src={`https://image.tmdb.org/t/p/original${result.poster_path}`} alt={result.title} />
+                        )}
                         <MovieTitle>{result.title}</MovieTitle>
                         <AiOutlinePlayCircle size="24"/>
                       </InnerList>
                     </Link>
                   ) : (
                     <h3>No poster and title available</h3>
-                  )}<div ref={bottom} />
+                  )}
                 </div>
               );
             });
           })}
-          <div ref={bottom} />
         </List>
         )}
       </ListWrapper>
+      
       <Navigation/>
+      <div ref={bottom} />
     </div>
   );
 }
@@ -191,6 +195,7 @@ const TitleText = styled.div`
 `
 
 const MovieTitle = styled.div`
+  width : 180px;
   font-style: normal;
   font-weight: 400;
   font-size: 14.7222px;
